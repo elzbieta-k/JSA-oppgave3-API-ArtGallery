@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Limelight&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Met Museum Gallery</title>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to the Met Museum Digital Gallery</h1>
+      <p>
+        Step into a curated collection from one of the world’s most iconic art
+        museums—right at your fingertips. Explore masterpieces, hidden gems, and
+        timeless works of art, carefully selected from The Metropolitan Museum
+        of Art’s vast archives. Choose a department below to begin your journey,
+        and discover stories behind every brushstroke, sketch, and captured
+        moment. Every artwork tells a story. Click Learn More to view the piece
+        in detail, explore its history, and enjoy a closer look at the artistry
+        behind it.
+      </p>
+      <div class="departments">
+        <div class="department-button">
+          <p>
+            Immerse yourself in the elegance and drama of European art,
+            featuring masterpieces from the Renaissance to the 19th century.
+          </p>
+          <button class="button">European Paintings</button>
+        </div>
+        <div class="department-button">
+          <p>
+            Delve into intricate sketches, etchings, and designs that reveal an
+            artist’s creative process and vision.
+          </p>
+          <button class="button">Drawings & Prints</button>
+        </div>
+        <div class="department-button">
+          <p>
+            Experience moments frozen in time with striking photography from
+            across the globe and throughout history.
+          </p>
+          <button class="button">Photographs</button>
+        </div>
+      </div>
+    </header>
+    <main id="objects-container"></main>
+    <div id="modal" class="modal hidden">
+      <div id="modal-content">
+        <span id="close-modal">x</span>
+        <img id="modal-image" />
+        <div id="modal-info"></div>
+      </div>
+    </div>
+  </body>
+</html>
