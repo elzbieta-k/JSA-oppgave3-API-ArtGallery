@@ -5,7 +5,11 @@ const modalImage = document.querySelector("#modal-image");
 const modalInfo = document.querySelector("#modal-info");
 const closeModal = document.querySelector("#close-modal");
 
-let paintings = [];
+const paintingsButton = document.querySelector("#paintings-button");
+const drawingsButton = document.querySelector("#drawings-button");
+const photograpghsButton = document.querySelector("#photographs-button");
+
+let arts = [];
 // let startIndex = 0;
 let page = 50;
 let uniqueMedium = [];
@@ -61,6 +65,7 @@ const fetchAllPaintings = async () => {
     console.log(allData);
   }
 };
+
 // fetchAllPaintings().then();
 
 const buildPage = (objectsIDs) => {
@@ -69,30 +74,46 @@ const buildPage = (objectsIDs) => {
   for (let object of sliceObjectsIDs) {
     const objectContainer = document.createElement("div");
     objectContainer.classList.add("object-container");
+
+    const imageContainer = document.createElement("div");
+    imageContainer.classList.add("image-container");
+
     const objectImg = document.createElement("img");
     objectImg.src = object.smallImageURL;
-    objectImg.width = 250;
+    // objectImg.width = 250;
+
+    const infoContainer = document.createElement("div");
+    infoContainer.classList.add("info-container");
 
     const title = document.createElement("h3");
+    title.classList.add("title");
     title.textContent = object.title;
 
+    const author = document.createElement("p");
+    author.classList.add("p-author");
+    author.textContent = object.artistAlphaSort;
+
     const learnMoreButton = document.createElement("button");
+    learnMoreButton.classList.add("learn-more-button");
     learnMoreButton.textContent = "Learn more";
     learnMoreButton.addEventListener("click", () => {
       modalInfo.replaceChildren();
       showDetails(object);
     });
-    objectContainer.append(objectImg, title, learnMoreButton);
+    imageContainer.append(objectImg);
+    infoContainer.append(title, author, learnMoreButton);
+    objectContainer.append(imageContainer, infoContainer);
     objectsContainer.append(objectContainer);
   }
   objectsContainer.append(loadMoreBtn);
 };
 
 const loadMoreBtn = document.createElement("button");
+loadMoreBtn.classList.add("load-more-button");
 loadMoreBtn.textContent = "Load more";
 loadMoreBtn.addEventListener("click", () => {
   page += 10;
-  buildPage(paintings);
+  buildPage(arts);
   return loadMoreBtn;
 });
 
@@ -100,9 +121,20 @@ const showDetails = (object) => {
   modalImage.src = object.imageURL;
 
   const title = document.createElement("h3");
-  title.textContent = object.title;
+  title.classList.add("title-modal");
+  title.textContent = `TITLE: ${object.title}`;
 
-  modalInfo.append(title);
+  const author = document.createElement("p");
+  author.textContent = `AUTHOR: ${
+    object.artistAlphaSort ? object.artistAlphaSort : "Unknown"
+  }`;
+
+  const date = document.createElement("p");
+  date.textContent = `DATE: ${
+    object.objectDate ? object.objectDate : "Unknown"
+  }`;
+
+  modalInfo.append(title, author, date);
   modal.classList.remove("hidden");
 };
 
@@ -110,11 +142,25 @@ closeModal.addEventListener("click", () => {
   modal.classList.add("hidden");
 });
 
-const loadData = async () => {
-  const response = await fetch(`./drawings.json`);
-  paintings = await response.json();
-  buildPage(paintings);
+const loadData = async (path) => {
+  const response = await fetch(path);
+  arts = await response.json();
+  buildPage(arts);
 };
+
+paintingsButton.addEventListener("click", () => {
+  objectsContainer.replaceChildren();
+  loadData(`./paintings.json`);
+});
+drawingsButton.addEventListener("click", () => {
+  objectsContainer.replaceChildren();
+  loadData(`./drawings.json`);
+});
+
+photograpghsButton.addEventListener("click", () => {
+  objectsContainer.replaceChildren();
+  loadData(`./photo.json`);
+});
 
 const getUniqueValues = async () => {
   const response = await fetch(`./object.json`);
@@ -124,5 +170,5 @@ const getUniqueValues = async () => {
   console.log(uniqueMedium);
 };
 
-getUniqueValues().then();
-loadData().then();
+// getUniqueValues().then();
+// loadData().then();
