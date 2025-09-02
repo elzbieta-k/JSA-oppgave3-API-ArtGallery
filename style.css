@@ -38,7 +38,7 @@ html {
 body {
   font-family: "Roboto", sans-serif;
   max-width: 1440px;
-  background-color: #eef0f2;
+  background-color: #f6f0ed;
   color: #1b1725;
   margin: 0 auto;
 }
@@ -55,7 +55,7 @@ header {
 
 h1 {
   font-family: "Limelight", sans-serif;
-  font-size: 3rem;
+  font-size: 3.2rem;
   text-align: center;
   padding-bottom: 1%;
 }
@@ -90,6 +90,7 @@ header p {
   padding: 2%;
   background-color: #28536b;
   border-radius: 7%;
+  box-shadow: 0 0 13px #28536b;
 }
 
 .department-button p {
@@ -103,7 +104,8 @@ header p {
   text-transform: uppercase;
   width: 200px;
   padding: 3%;
-  background-color: #c7c7a6;
+  background-color: #bbb193;
+  border: 1px solid #1b1725;
   border-radius: 7px;
 }
 
@@ -138,12 +140,12 @@ header p {
 #modal-image {
   /* max-width: 70vw; */
   max-height: 74vh;
-  max-width: 50%;
+  max-width: 70%;
 }
 
 #modal-info {
   height: 100%;
-  width: 50%;
+  width: 30%;
   display: flex;
   flex-direction: column;
   gap: 1%;
@@ -155,9 +157,14 @@ header p {
   object-fit: cover;
 }
 
+#modal-info h3 {
+  font-family: "Limelight", sans-serif;
+  font-size: 1.5rem;
+}
 #modal-info a {
   text-decoration: none;
-  color: #c7c7a6;
+  color: #bbb193;
+  font-weight: bold;
 }
 #close-modal {
   position: absolute;
@@ -173,6 +180,7 @@ header p {
   width: 4%;
   border-radius: 50%;
   text-align: center;
+  color: #1b1725;
 }
 
 #objects-container {
@@ -211,7 +219,7 @@ header p {
   height: 25%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   gap: 5%;
 }
@@ -231,6 +239,9 @@ header p {
   width: 40%;
   text-transform: uppercase;
   border-radius: 7px;
+}
+.learn-more-button:hover {
+  background-color: #bbb193;
 }
 
 .load-more-button {
