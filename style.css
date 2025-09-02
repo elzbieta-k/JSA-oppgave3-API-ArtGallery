@@ -50,7 +50,7 @@ header {
   justify-content: center;
   align-items: center;
   padding: 5%;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid #1b1725;
 }
 
 h1 {
@@ -70,7 +70,7 @@ header p {
 
 .departments {
   width: 100%;
-  height: 225px;
+  height: 235px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -102,7 +102,7 @@ header p {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   text-transform: uppercase;
-  width: 200px;
+  width: 70%;
   padding: 3%;
   background-color: #bbb193;
   border: 1px solid #1b1725;
@@ -138,14 +138,13 @@ header p {
 }
 
 #modal-image {
-  /* max-width: 70vw; */
   max-height: 74vh;
   max-width: 70%;
 }
 
 #modal-info {
   height: 100%;
-  width: 30%;
+  max-width: 30%;
   display: flex;
   flex-direction: column;
   gap: 1%;
@@ -199,6 +198,7 @@ header p {
   justify-content: space-between;
   align-items: center;
   gap: 3%;
+  height: 70vh;
 }
 
 .image-container {
@@ -251,4 +251,68 @@ header p {
   cursor: pointer;
   height: 100%;
   text-transform: uppercase;
+}
+
+@media (max-width: 1300px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 1000px) {
+  html {
+    font-size: 13px;
+  }
+
+  #objects-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  html {
+    font-size: 12px;
+  }
+
+  #objects-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .departments {
+    height: 300px;
+    flex-direction: column;
+    padding-top: 5%;
+    gap: 3%;
+  }
+
+  .department-button {
+    width: 75%;
+    flex-direction: row;
+    border-radius: 1px;
+  }
+
+  .button {
+    width: 50%;
+  }
+
+  #modal-content {
+    width: 95vw;
+    height: 95vh;
+    flex-direction: column;
+  }
+
+  #modal-image {
+    max-width: 85%;
+    max-height: 75%;
+  }
+
+  #modal-info {
+    max-width: 100%;
+    display: flex;
+  }
+
+  #close-modal {
+    height: 6%;
+    width: 5%;
+  }
 }
