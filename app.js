@@ -11,7 +11,7 @@ const photograpghsButton = document.querySelector("#photographs-button");
 
 let arts = [];
 // let startIndex = 0;
-let page = 50;
+let page = 0;
 let uniqueMedium = [];
 
 const MET_MUSEUM_URL =
@@ -19,10 +19,10 @@ const MET_MUSEUM_URL =
 
 const fetchAllPaintings = async () => {
   const idsResponse = await fetch(
-    `${MET_MUSEUM_URL}/objects?departmentIds=9&hasImages=true`
+    `${MET_MUSEUM_URL}/objects?departmentIds=19&hasImages=true`
   );
   const idsData = await idsResponse.json();
-  const ids = idsData.objectIDs.slice(0, 500);
+  const ids = idsData.objectIDs.slice(701, 1000);
 
   console.log(`Fetching details for ${ids.length} objects...`);
 
@@ -134,7 +134,32 @@ const showDetails = (object) => {
     object.objectDate ? object.objectDate : "Unknown"
   }`;
 
-  modalInfo.append(title, author, date);
+  const authorNationality = document.createElement("p");
+  authorNationality.textContent = `NATIONALITY: ${
+    object.artistNationality ? object.artistNationality : "Unknown"
+  }`;
+
+  const medium = document.createElement("p");
+  medium.textContent = `MEDIUM: ${
+    object.medium ? object.medium : "Not specified"
+  }`;
+
+  const department = document.createElement("p");
+  department.textContent = `DEPARTMENT: ${object.department}`;
+
+  const url = document.createElement("a");
+  url.href = object.objectURL;
+  url.textContent = "FIND OUT MORE DETAILS ON THE WEBSITE 🔗";
+
+  modalInfo.append(
+    title,
+    author,
+    date,
+    authorNationality,
+    medium,
+    department,
+    url
+  );
   modal.classList.remove("hidden");
 };
 
@@ -159,6 +184,7 @@ drawingsButton.addEventListener("click", () => {
 
 photograpghsButton.addEventListener("click", () => {
   objectsContainer.replaceChildren();
+
   loadData(`./photo.json`);
 });
 
