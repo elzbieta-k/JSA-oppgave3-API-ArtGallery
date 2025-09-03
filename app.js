@@ -7,7 +7,7 @@ const closeModal = document.querySelector("#close-modal");
 
 const paintingsButton = document.querySelector("#paintings-button");
 const drawingsButton = document.querySelector("#drawings-button");
-const photograpghsButton = document.querySelector("#photographs-button");
+const robertLehmanButton = document.querySelector("#robert-lehman-button");
 
 let arts = [];
 let page = 0;
@@ -99,6 +99,11 @@ const showDetails = (object) => {
     object.artistNationality ? object.artistNationality : "Unknown"
   }`;
 
+  const artworkType = document.createElement("p");
+  artworkType.textContent = `ARTWORK TYPE: ${
+    object.classification ? object.classification : "Not specified"
+  }`;
+
   const medium = document.createElement("p");
   medium.textContent = `MEDIUM: ${
     object.medium ? object.medium : "Not specified"
@@ -117,6 +122,7 @@ const showDetails = (object) => {
     date,
     authorNationality,
     medium,
+    artworkType,
     department,
     url
   );
@@ -142,7 +148,7 @@ drawingsButton.addEventListener("click", () => {
   page = 0;
 });
 
-photograpghsButton.addEventListener("click", () => {
+robertLehmanButton.addEventListener("click", () => {
   objectsContainer.replaceChildren();
   const department = 15;
   fetchAllIDsForDepartment(department);
