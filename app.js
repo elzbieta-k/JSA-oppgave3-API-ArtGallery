@@ -18,14 +18,11 @@ const MET_MUSEUM_URL =
 
 //Function that builds the page
 const buildPage = async (objectsIDs) => {
-  console.log(objectsIDs);
   const sliceObjectsIDs = objectsIDs.slice(page, page + showedArts);
 
   for (let object of sliceObjectsIDs) {
-    console.log(object);
     const res = await fetch(`${MET_MUSEUM_URL}/objects/${object}`);
     const obj = await res.json();
-    console.log(obj);
 
     const objectContainer = document.createElement("div");
     objectContainer.classList.add("object-container");
@@ -75,7 +72,7 @@ loadMoreBtn.addEventListener("click", () => {
 
 //Function showDetails shows more details about an art in an  modal
 const showDetails = (object) => {
-  console.log(object);
+  // console.log(object);
   modalImage.src = object.primaryImage
     ? object.primaryImage
     : "./images/failed.png";
