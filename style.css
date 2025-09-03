@@ -1,30 +1,3 @@
-/* 
-.roboto-<uniquifier> {
-  font-family: "Roboto", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
-}
-
-
-.limelight-regular {
-  font-family: "Limelight", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-} */
-
-/* 
-antiflash-white : #EEF0F2
-silver: #C6C7C4
-rose quarz: #A2999E
-rose taupe: #846A6A
-onyx: #353B3C
-raisin black: #1B1725
-
-
-*/
 * {
   padding: 0;
   margin: 0;
@@ -132,7 +105,7 @@ header p {
   height: 90vh;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   gap: 2%;
 }
@@ -198,12 +171,12 @@ header p {
   justify-content: space-between;
   align-items: center;
   gap: 3%;
-  height: 70vh;
+  height: auto;
 }
 
 .image-container {
   width: 100%;
-  height: 75%;
+  height: 65%;
 }
 .image-container img {
   height: 100%;
@@ -216,7 +189,7 @@ header p {
 }
 .info-container {
   width: 100%;
-  height: 25%;
+  height: 35%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -267,9 +240,13 @@ header p {
   #objects-container {
     grid-template-columns: repeat(2, 1fr);
   }
+  #close-modal {
+    height: 7%;
+    width: 5%;
+  }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   html {
     font-size: 12px;
   }
@@ -279,7 +256,7 @@ header p {
   }
 
   .departments {
-    height: 300px;
+    height: 320px;
     flex-direction: column;
     padding-top: 5%;
     gap: 3%;
@@ -288,7 +265,7 @@ header p {
   .department-button {
     width: 75%;
     flex-direction: row;
-    border-radius: 1px;
+    border-radius: 4px;
   }
 
   .button {

@@ -10,68 +10,23 @@ const drawingsButton = document.querySelector("#drawings-button");
 const photograpghsButton = document.querySelector("#photographs-button");
 
 let arts = [];
-// let startIndex = 0;
 let page = 0;
-let uniqueMedium = [];
+let showedArts = 5;
 
 const MET_MUSEUM_URL =
   "https://collectionapi.metmuseum.org/public/collection/v1";
 
-const fetchAllPaintings = async () => {
-  const idsResponse = await fetch(
-    `${MET_MUSEUM_URL}/objects?departmentIds=19&hasImages=true`
-  );
-  const idsData = await idsResponse.json();
-  const ids = idsData.objectIDs.slice(701, 1000);
-
-  console.log(`Fetching details for ${ids.length} objects...`);
-
-  const allData = [];
-
-  for (let i = 0; i < ids.length; i++) {
-    try {
-      const res = await fetch(`${MET_MUSEUM_URL}/objects/${ids[i]}`);
-      const obj = await res.json();
-      const detailsObject = {
-        id: obj.objectID,
-        imageURL: obj.primaryImage,
-        smallImageURL: obj.primaryImageSmall,
-        department: obj.department,
-        objectName: obj.objectName,
-        title: obj.title,
-        culture: obj.culture,
-        period: obj.period,
-        artistDisplayName: obj.asrtistDisplayName,
-        artistAlphaSort: obj.artistAlphaSort,
-        artistNationality: obj.artistNationality,
-        artistGender: obj.artistGender,
-        objectDate: obj.objectDate,
-        medium: obj.medium,
-        country: obj.country,
-        objectURL: obj.objectURL,
-      };
-      if (obj.primaryImage) allData.push(detailsObject);
-    } catch (err) {
-      console.error(`Error fetching ID ${ids[i]}:`, err);
-    }
-
-    console.log(`Fetched ${i + 1}/${ids.length}`);
-
-    // After every 30 requests, wait 2 minutes
-    if ((i + 1) % 30 === 0) {
-      console.log("Pausing for 2 minutes...");
-      await new Promise((resolve) => setTimeout(resolve, 120000)); // 2 minutes
-    }
-    console.log(allData);
-  }
-};
-
-// fetchAllPaintings().then();
-
-const buildPage = (objectsIDs) => {
-  const sliceObjectsIDs = objectsIDs.slice(page, page + 10);
+//Function that builds the page
+const buildPage = async (objectsIDs) => {
+  console.log(objectsIDs);
+  const sliceObjectsIDs = objectsIDs.slice(page, page + showedArts);
 
   for (let object of sliceObjectsIDs) {
+    console.log(object);
+    const res = await fetch(`${MET_MUSEUM_URL}/objects/${object}`);
+    const obj = await res.json();
+    console.log(obj);
+
     const objectContainer = document.createElement("div");
     objectContainer.classList.add("object-container");
 
@@ -79,26 +34,27 @@ const buildPage = (objectsIDs) => {
     imageContainer.classList.add("image-container");
 
     const objectImg = document.createElement("img");
-    objectImg.src = object.smallImageURL;
-    // objectImg.width = 250;
+    objectImg.src = obj.primaryImageSmall
+      ? obj.primaryImageSmall
+      : "./images/failed.png";
 
     const infoContainer = document.createElement("div");
     infoContainer.classList.add("info-container");
 
     const title = document.createElement("h3");
     title.classList.add("title");
-    title.textContent = object.title;
+    title.textContent = obj.title;
 
     const author = document.createElement("p");
     author.classList.add("p-author");
-    author.textContent = object.artistAlphaSort;
+    author.textContent = obj.artistAlphaSort;
 
     const learnMoreButton = document.createElement("button");
     learnMoreButton.classList.add("learn-more-button");
     learnMoreButton.textContent = "Learn more";
     learnMoreButton.addEventListener("click", () => {
       modalInfo.replaceChildren();
-      showDetails(object);
+      showDetails(obj);
     });
     imageContainer.append(objectImg);
     infoContainer.append(title, author, learnMoreButton);
@@ -112,13 +68,17 @@ const loadMoreBtn = document.createElement("button");
 loadMoreBtn.classList.add("load-more-button");
 loadMoreBtn.textContent = "Load more";
 loadMoreBtn.addEventListener("click", () => {
-  page += 10;
+  page += 5;
   buildPage(arts);
   return loadMoreBtn;
 });
 
+//Function showDetails shows more details about an art in an  modal
 const showDetails = (object) => {
-  modalImage.src = object.imageURL;
+  console.log(object);
+  modalImage.src = object.primaryImage
+    ? object.primaryImage
+    : "./images/failed.png";
 
   const title = document.createElement("h3");
   title.classList.add("title-modal");
@@ -167,34 +127,34 @@ closeModal.addEventListener("click", () => {
   modal.classList.add("hidden");
 });
 
-const loadData = async (path) => {
-  const response = await fetch(path);
-  arts = await response.json();
-  buildPage(arts);
-};
-
-paintingsButton.addEventListener("click", () => {
+//Event listeners on each button which pass department number to fetchAllIDsForDepartment function
+paintingsButton.addEventListener("click", async () => {
   objectsContainer.replaceChildren();
-  loadData(`./paintings.json`);
+  const department = 11;
+  fetchAllIDsForDepartment(department);
+  page = 0;
 });
+
 drawingsButton.addEventListener("click", () => {
   objectsContainer.replaceChildren();
-  loadData(`./drawings.json`);
+  const department = 9;
+  fetchAllIDsForDepartment(department);
+  page = 0;
 });
 
 photograpghsButton.addEventListener("click", () => {
   objectsContainer.replaceChildren();
-
-  loadData(`./photo.json`);
+  const department = 15;
+  fetchAllIDsForDepartment(department);
+  page = 0;
 });
 
-const getUniqueValues = async () => {
-  const response = await fetch(`./object.json`);
-  paintings = await response.json();
-
-  uniqueMedium = [...new Set(paintings.map((painting) => painting.culture))];
-  console.log(uniqueMedium);
+//Function that fetched all id for chosen department and pass array with all id to the buildPage function
+const fetchAllIDsForDepartment = async (department) => {
+  const idsResponse = await fetch(
+    `${MET_MUSEUM_URL}/objects?departmentIds=${department}&hasImages=true`
+  );
+  const data = await idsResponse.json();
+  arts = data.objectIDs;
+  buildPage(arts);
 };
-
-// getUniqueValues().then();
-// loadData().then();
