@@ -19,7 +19,6 @@ const MET_MUSEUM_URL =
 //Function that builds the page
 const buildPage = async (objectsIDs) => {
   const sliceObjectsIDs = objectsIDs.slice(page, page + showedArts);
-
   for (let object of sliceObjectsIDs) {
     const res = await fetch(`${MET_MUSEUM_URL}/objects/${object}`);
     const obj = await res.json();
