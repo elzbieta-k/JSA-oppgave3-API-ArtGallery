@@ -256,7 +256,7 @@ header p {
   }
 
   .departments {
-    height: 320px;
+    height: 420px;
     flex-direction: column;
     padding-top: 5%;
     gap: 3%;
