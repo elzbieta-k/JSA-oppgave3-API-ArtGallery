@@ -80,6 +80,7 @@ header p {
   background-color: #bbb193;
   border: 1px solid #1b1725;
   border-radius: 7px;
+  cursor: pointer;
 }
 
 .modal.hidden {
@@ -212,6 +213,7 @@ header p {
   width: 40%;
   text-transform: uppercase;
   border-radius: 7px;
+  cursor: pointer;
 }
 .learn-more-button:hover {
   background-color: #bbb193;
